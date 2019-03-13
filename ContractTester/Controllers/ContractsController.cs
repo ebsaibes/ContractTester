@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContractTester.Models;
+using System.IO;
+using System.Text;
+using System.Net.Mime;
 
 namespace ContractTester
 {
@@ -40,6 +43,34 @@ namespace ContractTester
             }
 
             return View(contract);
+        }
+
+        public async Task<FileStreamResult> Download(string id)
+        {
+            //Generate Error File
+            string error = "Error no Contract found.";
+            string downloadFileName = "Error.txt";
+
+            if(id == null)
+            {
+                return null;
+            }
+            var contract = await _context.Contract.FirstOrDefaultAsync(x => x.Id == id);
+            if(contract == null)
+            {
+                return null;
+            }
+            downloadFileName = $"{contract.Id}_{contract.VersionNumber}.txt";
+            byte[] byteArray = Encoding.UTF8.GetBytes(contract.ContractString);
+
+            var stream = new MemoryStream(byteArray);
+
+
+            var fileStreamResult = new FileStreamResult(stream, MediaTypeNames.Text.Plain);
+            fileStreamResult.FileDownloadName = downloadFileName;
+
+            return fileStreamResult;
+
         }
 
         // GET: Contracts/Create
@@ -114,6 +145,9 @@ namespace ContractTester
             }
             return View(contract);
         }
+
+
+
 
         // GET: Contracts/Delete/5
         public async Task<IActionResult> Delete(string id)
