@@ -4,7 +4,7 @@
     ViewData["Title"] = "Contracts";
 }
 
-<h2>Index</h2>
+<h2>Current Contracts</h2>
 
 <p>
     <a class="btn btn-primary" asp-action="Create">Create New</a>
@@ -37,15 +37,14 @@
                 @Html.DisplayFor(modelItem => item.ContractString)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VersionNumber)
+                @Html.DisplayFor(modelitem => item.VersionNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpdateInst)
+                @Html.DisplayFor(modelitem => item.UpdateInst)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 <a asp-action="Download" asp-route-id="@item.Id"> Download</a>
             </td>
             
