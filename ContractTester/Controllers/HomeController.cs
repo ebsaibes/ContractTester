@@ -12,7 +12,8 @@ namespace ContractTester.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            //Redirect the main page to Constracts home
+            return Redirect("Contracts/Index");
         }
 
         public IActionResult About()
