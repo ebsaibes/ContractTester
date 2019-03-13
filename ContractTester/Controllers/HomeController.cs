@@ -18,7 +18,7 @@ namespace ContractTester.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Consumer|Producer Contract Store";
 
             return View();
         }
