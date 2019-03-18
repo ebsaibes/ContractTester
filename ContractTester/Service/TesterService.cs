@@ -100,8 +100,22 @@ namespace ContractTester.Service
 			return true;
 
 		}
-	
-		public TesterService(Contract contract, string message)
+
+        private bool TryParseJSON(string json, out JObject jObject)
+        {
+            try
+            {
+                jObject = JObject.Parse(json);
+                return true;
+            }
+            catch
+            {
+                jObject = null;
+                return false;
+            }
+        }
+
+        public TesterService(Contract contract, string message)
 		{
 			this.Contract = contract;
 			this.RawMessage = message;
