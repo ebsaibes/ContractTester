@@ -9,16 +9,20 @@ using ContractTester.Models;
 using System.IO;
 using System.Text;
 using System.Net.Mime;
+using ContractTester.Service;
+using ContractTester.ViewModels;
 
 namespace ContractTester
 {
     public class ContractsController : Controller
     {
         private readonly ContractTesterContext _context;
+        //private TesterService _testerService;
 
         public ContractsController(ContractTesterContext context)
         {
             _context = context;
+
         }
 
         // GET: Contracts
@@ -72,6 +76,7 @@ namespace ContractTester
             return fileStreamResult;
 
         }
+
 
         // GET: Contracts/Create
         public IActionResult Create()
@@ -147,6 +152,59 @@ namespace ContractTester
         }
 
 
+        //Get Contracts/TestMessage/1
+        public async Task<IActionResult> TestMessage(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var contract = await _context.Contract.FindAsync(id);
+            if (contract == null)
+            {
+                return NotFound();
+            }
+
+            TestMessageViewModel viewModel = new TestMessageViewModel()
+            {
+                contract = contract,
+            };
+            
+
+            return View(viewModel);
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TestMessage(string id, string sampleMessage)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var contract = await _context.Contract.FindAsync(id);
+            if (contract == null)
+            {
+                return NotFound();
+            }
+            TesterService testerService = new TesterService(contract, sampleMessage);
+            testerService.TestSetup();
+
+            ViewModels.TestMessageViewModel viewModel = new TestMessageViewModel()
+            {
+                contract = contract,
+                TestMessage = sampleMessage,
+                TestMessageIsValid = testerService.IsMessageValid()
+            };
+
+                //return view which shows the message passed
+            return View(viewModel);
+
+
+        }
 
 
         // GET: Contracts/Delete/5
