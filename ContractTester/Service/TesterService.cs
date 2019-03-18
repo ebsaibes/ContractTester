@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ContractTester.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ContractTester.Service
 {
@@ -18,18 +19,31 @@ namespace ContractTester.Service
 		{
             List<bool> testCases = new List<bool>();
 			TestSetup();
-			testCases.Add(AreAllElementsInMessage());
-            testCases.Add(AreAllMessageValuesMatchDataTypes());
+            if (messageKeyDictionary.Count > 0)
+            {
+                testCases.Add(AreAllElementsInMessage());
+                testCases.Add(AreAllMessageValuesMatchDataTypes());
+                return testCases.All(x => x);
+            }
 
-            return testCases.All(x => x);
+            return false;
         }
 
 
 		public void TestSetup()
-		{
+        {
 			//Convert The Contract to a Dictionary
 			contractDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(Contract.ContractString);
-			messageKeyDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(RawMessage);
+            JObject jsonObject;
+            if (TryParseJSON(RawMessage, out jsonObject))
+            {
+                messageKeyDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonObject.ToString());
+            }
+            else
+            {
+                messageKeyDictionary = new Dictionary<string, string>();
+            }
+			
 		}
 
 		/// <summary>
