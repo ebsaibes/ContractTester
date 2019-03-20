@@ -11,7 +11,7 @@ namespace ContractTester.ViewModels
     public class TestMessageViewModel
     {
         public Contract contract { get; set; }
-        public bool TestMessageIsValid { get; set; }
+        public string TestMessageValid { get; set; }
         public string TestMessage { get; set; }
 
         public TestMessageViewModel() { }

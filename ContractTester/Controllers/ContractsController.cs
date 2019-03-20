@@ -197,7 +197,7 @@ namespace ContractTester
             {
                 contract = contract,
                 TestMessage = sampleMessage,
-                TestMessageIsValid = testerService.IsMessageValid()
+                TestMessageValid = testerService.IsMessageValid() ? "Valid" : "Invalid"
             };
 
                 //return view which shows the message passed

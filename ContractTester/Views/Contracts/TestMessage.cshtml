@@ -31,9 +31,21 @@
             <form asp-action="TestMessage">
                 <textarea name="sampleMessage" asp-for="TestMessage"></textarea>
                 <div class="form-group">
-                    <input asp-for="TestMessage" type="submit" value="Submit Message" class="btn btn-default"/>
+                    <input asp-for="TestMessage" type="submit" value="Submit Message" class="btn btn-default" />
                 </div>
             </form>
+            @if (!String.IsNullOrEmpty(Model.TestMessageValid))
+            {
+                if (Model.TestMessageValid == "Valid")
+                {
+                    <h4 style="color:green">Message is @Model.TestMessageValid</h4>
+                }
+                else
+                {
+                    <h4 style="color:red">Message is @Model.TestMessageValid</h4>
+                }
+            }
+
         </div>
     </div>
 </div>
