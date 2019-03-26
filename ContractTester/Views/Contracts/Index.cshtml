@@ -4,12 +4,12 @@
     ViewData["Title"] = "Contracts";
 }
 
-<h2>Current Contracts</h2>
+<div class="flex-container">
+    <h2 class="flex-expand">Current Contracts</h2>
+    <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus"></i>Create New</a>
+</div>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>

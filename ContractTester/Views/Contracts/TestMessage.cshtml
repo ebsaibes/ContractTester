@@ -6,9 +6,9 @@
 
 <h2>Test Sample Message</h2>
 
+<hr />
 <div class="row">
-    <hr />
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-4">
         <h4>Contract</h4>
         <dl class="dl-horizontal">
             <dt>
@@ -25,13 +25,15 @@
             </dd>
         </dl>
     </div>
-    <div class="col-md-4">
-        <h4> Submit Test Message</h4>
+    <div class="col-md-6 col-lg-4">
+        <h4>Test Message</h4>
         <div class="pull-left">
             <form asp-action="TestMessage">
-                <textarea name="sampleMessage" asp-for="TestMessage"></textarea>
+                <div class="form-group flex-container">
+                    <textarea name="sampleMessage" asp-for="TestMessage" class="flex-expand"></textarea>
+                </div>
                 <div class="form-group">
-                    <input asp-for="TestMessage" type="submit" value="Submit Message" class="btn btn-default" />
+                    <button asp-for="TestMessage" type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
             @if (!String.IsNullOrEmpty(Model.TestMessageValid))
@@ -50,6 +52,8 @@
     </div>
 </div>
 <div class="row">
-    <a asp-action="Edit" asp-route-id="@Model.contract.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="col-12">
+        <a asp-action="Edit" asp-route-id="@Model.contract.Id">Edit</a>&nbsp;|&nbsp;
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

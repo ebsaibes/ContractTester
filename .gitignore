@@ -2,3 +2,7 @@ ContractTester/bin/
 ContractTester/obj/
 ContractTesterTest/bin/
 ContractTesterTest/obj/
+
+# Visual Studio files
+.vs/
+.vscode/

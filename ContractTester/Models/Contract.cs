@@ -9,6 +9,7 @@ namespace ContractTester.Models
     public class Contract
     {
         public string Id { get; set; }
+        
         public string Description { get; set; }
 
         [DisplayName("Contract")]
