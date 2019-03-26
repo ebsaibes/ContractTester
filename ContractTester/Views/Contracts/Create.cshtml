@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+
+    var defaultContract = @"{""ID"": ""Guid"", ""Timestamp"": ""String""}";
 }
 
 <h2>Create Contract</h2>
@@ -17,30 +19,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="ContractString" class="control-label"></label>
-                <textarea asp-for="ContractString" class="form-control"></textarea>
-                <span asp-validation-for="ContractString" class="text-danger"></span>
+                <div class="form-text">ID and Timestamp are required.</div>
+                <div class="form-text">Supported data types: Guid, String, Int32, Int64</div>
+                <div class="flex-container">
+                    <textarea class="flex-expand tall" id="@Html.IdFor(m => m.ContractString)" name="@Html.NameFor(m => m.ContractString)">@defaultContract</textarea>
+                </div><span asp-validation-for="ContractString" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="VersionNumber" class="control-label"></label>
                 <input asp-for="VersionNumber" class="form-control" />
                 <span asp-validation-for="VersionNumber" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="UpdateInst" class="control-label"></label>
-                <input asp-for="UpdateInst" class="form-control" />
-                <span asp-validation-for="UpdateInst" class="text-danger">@Model.UpdateInst</span>
-            </div>*@
-            <div class="form-group">
-                @*<input type="submit" value="Save" class="btn btn-default" />*@
-                @*<a class="btn btn-primary" asp-action="Create"><i class="far fa-save"></i>Save</a>*@
+            <div class="form-group button-list">
                 <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>Save</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

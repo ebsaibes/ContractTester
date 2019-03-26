@@ -121,7 +121,7 @@ namespace ContractTester
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Description,ContractString,VersionNumber,UpdateInst")] Contract contract)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Description,ContractString,VersionNumber")] Contract contract)
         {
             if (id != contract.Id)
             {
@@ -130,6 +130,7 @@ namespace ContractTester
 
             if (ModelState.IsValid)
             {
+                contract.UpdateInst = DateTime.Now;
                 try
                 {
                     _context.Update(contract);

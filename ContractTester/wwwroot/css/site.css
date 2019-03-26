@@ -23,6 +23,18 @@ h2 {
     color: #4d4d44 !important; /* update later to override all states of form-control text */
 }
 
+textarea.tall {
+    min-height: 100px;
+}
+
+.form-text {
+    color: #7b8a8b;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -61,6 +73,10 @@ h2 {
 
 .btn {
     margin-bottom: 10px;
+}
+
+.button-list .btn {
+    margin-right: 10px;
 }
 
 /* Table styling */
