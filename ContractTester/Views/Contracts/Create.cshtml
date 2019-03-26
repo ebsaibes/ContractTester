@@ -9,9 +9,9 @@
 <h2>Create Contract</h2>
 <hr />
 <div class="row">
-    <div class="col-md-6 col-lg-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Create" class="col">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6 col-lg-4">
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
@@ -34,8 +34,8 @@
                 <button type="submit" class="btn btn-primary"><i class="far fa-save"></i>Save</button>
                 <a asp-action="Index" class="btn btn-secondary">Cancel</a>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

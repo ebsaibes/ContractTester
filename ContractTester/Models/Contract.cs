@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -38,16 +39,25 @@ namespace ContractTester.Models
         {
             var results = new List<ValidationResult>();
             Contract contract = (Contract)validationContext.ObjectInstance;
-            var contractDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(contract.ContractString);
 
-            if (!contractDictionary.Keys.Contains("ID") || contractDictionary["ID"] != "Guid")
+            try
             {
-                results.Add(new ValidationResult("Contract must include an ID (Guid)."));
+                JsonValue.Parse(contract.ContractString);
+                var contractDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(contract.ContractString);
+
+                if (!contractDictionary.Keys.Contains("ID") || contractDictionary["ID"] != "Guid")
+                {
+                    results.Add(new ValidationResult("Contract must include an ID (Guid)."));
+                }
+
+                if (!contractDictionary.Keys.Contains("Timestamp") || contractDictionary["Timestamp"] != "String")
+                {
+                    results.Add(new ValidationResult("Contract must include a Timestamp (String)"));
+                }
             }
-
-            if (!contractDictionary.Keys.Contains("Timestamp") || contractDictionary["Timestamp"] != "String")
+            catch (Exception ex)
             {
-                results.Add(new ValidationResult("Contract must include a Timestamp (String)"));
+                results.Add(new ValidationResult("Contract must be valid JSON."));
             }
 
             return results;

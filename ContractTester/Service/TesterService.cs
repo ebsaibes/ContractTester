@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using ContractTester.Models;
 using Newtonsoft.Json;
@@ -34,7 +35,7 @@ namespace ContractTester.Service
         {
 			//Convert The Contract to a Dictionary
 			contractDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(Contract.ContractString);
-            JObject jsonObject;
+            JsonValue jsonObject;
             if (TryParseJSON(RawMessage, out jsonObject))
             {
                 messageKeyDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonObject.ToString());
@@ -115,16 +116,16 @@ namespace ContractTester.Service
 
 		}
 
-        private bool TryParseJSON(string json, out JObject jObject)
+        private bool TryParseJSON(string json, out JsonValue jsonObject)
         {
             try
             {
-                jObject = JObject.Parse(json);
+                jsonObject = JsonValue.Parse(RawMessage);
                 return true;
             }
             catch
             {
-                jObject = null;
+                jsonObject = null;
                 return false;
             }
         }
